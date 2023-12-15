@@ -3,8 +3,11 @@ import React, { createContext, useReducer, useEffect } from "react";
 
 export const WorkoutContext = createContext();
 
-const initialState = {
-  completedWorkouts: JSON.parse(localStorage.getItem("completedWorkouts")) || [],
+const initialState = () => {
+  if (typeof window == "undefined") return null;
+  return {
+    completedWorkouts: JSON.parse(localStorage.getItem("completedWorkouts")) || [],
+  };
 };
 
 const reducer = (state, action) => {
@@ -21,7 +24,8 @@ const reducer = (state, action) => {
 };
 
 export const WorkoutProvider = ({ children }) => {
-  const [state, dispatch] = useReducer(reducer, initialState);
+  const [state, dispatch] = useReducer(reducer, initialState());
+
   useEffect(() => {
     if (typeof window !== 'undefined') {
       window.localStorage.setItem("completedWorkouts", JSON.stringify(state.completedWorkouts));
@@ -34,4 +38,5 @@ export const WorkoutProvider = ({ children }) => {
     </WorkoutContext.Provider>
   );
 };
+
 
