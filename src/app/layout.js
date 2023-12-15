@@ -9,15 +9,12 @@ export const metadata = {
   description: 'Track Your Fitness Progress',
 }
 
-
-const isSSR = () => typeof window === 'undefined'; 
-
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={inter.className}>
         <WorkoutProvider>
-        {!isSSR() && {children}}
+         {children}
         </WorkoutProvider>
       </body>
     </html>
