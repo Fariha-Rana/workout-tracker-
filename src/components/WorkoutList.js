@@ -21,8 +21,6 @@ const WorkoutList = () => {
     dispatch({ type: "TOGGLE_WORKOUT", payload: workoutId });
   };
 
-  if (typeof window == 'undefined') return null;
-
   return (
     <div className="m-4 p-6 bg-purple-200 rounded-md shadow-md">
       <h2 className="text-2xl font-semibold mb-4 text-center text-purple-800">
@@ -41,11 +39,12 @@ const WorkoutList = () => {
             }}
           >
             <Image
+              priority
               width={400}
               height={400}
               src={workout.image}
               alt={workout.name}
-              className="w-full h-full object-cover mb-2 rounded-md"
+              className="object-cover mb-2 rounded-md"
             />
            <div className="mt-2">
            <h3 className="text-lg font-italic">{workout.name}</h3>

@@ -4,7 +4,11 @@ import React, { createContext, useReducer, useEffect } from "react";
 export const WorkoutContext = createContext();
 
 const initialState = () => {
-  if (typeof window == "undefined") return [];
+  if (typeof window == 'undefined') {
+    return {
+      completedWorkouts : []
+    };
+  }
   return {
     completedWorkouts: JSON.parse(localStorage.getItem("completedWorkouts")) || [],
   };

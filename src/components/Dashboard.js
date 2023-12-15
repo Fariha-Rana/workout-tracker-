@@ -4,7 +4,11 @@ import CircularProgressBar from "./CircularProgressBar";
 import { useWorkoutContext } from "@/utils/useWorkoutContext"; 
 
 const Dashboard = () => {
-  const { state } = useWorkoutContext();
+    const { state } = useWorkoutContext();
+    const [caloriesTaken, setCaloriesTaken] = useState(2000);
+    const [dailyCalorieGoal, setDailyCalorieGoal] = useState(2000);
+    const [sleepHours, setSleepHours] = useState(6);
+
   const storedWorkoutsCompleted = state.completedWorkouts.length;
 
   const getLocalStorageItem = (key, defaultValue) => {
@@ -14,10 +18,6 @@ const Dashboard = () => {
     }
     return defaultValue;
   };
-
-  const [caloriesTaken, setCaloriesTaken] = useState(2000);
-  const [dailyCalorieGoal, setDailyCalorieGoal] = useState(2000);
-  const [sleepHours, setSleepHours] = useState(6);
 
   const caloriesLeft = dailyCalorieGoal - caloriesTaken;
 
@@ -29,31 +29,24 @@ const Dashboard = () => {
   
 
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      window.localStorage.setItem("workoutsCompleted", storedWorkoutsCompleted.toString());
-    }
+    window.localStorage.setItem("workoutsCompleted", storedWorkoutsCompleted.toString());
   }, [storedWorkoutsCompleted]);
   
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      window.localStorage.setItem("caloriesTaken", caloriesTaken.toString());
-    }
+    window.localStorage.setItem("caloriesTaken", caloriesTaken.toString());
   }, [caloriesTaken]);
   
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      window.localStorage.setItem("dailyCalorieGoal", dailyCalorieGoal.toString());
-    }
+    window.localStorage.setItem("dailyCalorieGoal", dailyCalorieGoal.toString());
   },[dailyCalorieGoal]);
 
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      window.localStorage.setItem("sleepHours", sleepHours.toString());
-    }
+    window.localStorage.setItem("sleepHours", sleepHours.toString());
+
   },[sleepHours]);
   
   return (
-    <section className="flex flex-wrap justify-around items-stretch mt-4">
+    <div className="flex flex-wrap justify-around items-stretch mt-4">
       <div className="flex-1 m-4 p-9 bg-purple-200 rounded-md shadow-md text-center">
         <h3 className="text-lg font-thick mb-2">{"Today's workout progress"}</h3>
         <CircularProgressBar percent={(storedWorkoutsCompleted / 10) * 100} />
@@ -122,7 +115,7 @@ const Dashboard = () => {
             : "Good Sleep ❤️"}
         </div>
       </div>
-    </section>
+    </div>
   );
 };
 
