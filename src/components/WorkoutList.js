@@ -38,10 +38,7 @@ const WorkoutList = () => {
               opacity: state.completedWorkouts.includes(workout.id) ? 0.7 : 1,
             }}
           >
-            <Image
-              priority
-              width={400}
-              height={400}
+            <img
               src={workout.image}
               alt={workout.name}
               className="object-cover mb-2 rounded-md"
